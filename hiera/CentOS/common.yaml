@@ -1,0 +1,7 @@
+---
+ssh_server_options:
+ 'PasswordAuthentication': 'no'
+ 'PermitRootLogin': 'yes'
+ 'AcceptEnv': 'LANG LC_* GIT_*'
+ 'PrintMotd': 'yes'
+ 'Subsystem': 'sftp /usr/libexec/openssh/sftp-server'

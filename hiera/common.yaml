@@ -1,0 +1,19 @@
+---
+base::update_packages:
+  'bash':
+    ensure: latest
+
+puppi::install_dependencies: false
+
+# general ssh options
+ssh_client_options:
+ 'Host *':
+   "ForwardAgent": 'yes'
+
+ssh_server_options:
+ 'PasswordAuthentication': 'no'
+ 'PermitRootLogin': 'yes'
+ 'AcceptEnv': 'LANG LC_* GIT_*'
+ 'PrintMotd': 'yes'
+
+base::puppetrunmode: 'none'
