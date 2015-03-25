@@ -45,10 +45,10 @@ echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo Preparing the VM. This may take some time depending upon the setup.
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     box.vm.provision "puppet" do |puppet|
-      puppet.manifests_path = "puppet/manifests"
-      puppet.module_path = ["puppet/modules", "puppet/roles"]
+      puppet.manifests_path = "./manifests"
+      puppet.module_path = ["./modules", "./roles"]
       puppet.manifest_file = "site.pp"
-      puppet.hiera_config_path = "puppet/hiera/hiera.yaml"
+      puppet.hiera_config_path = "./hiera/hiera.yaml"
       puppet.facter = {role: role, environment: "development"}
       puppet.options = puppet_opts
     end
@@ -61,7 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # disable the default shared folder
   config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.synced_folder "puppet/hiera", "/var/lib/hiera"
+  config.vm.synced_folder "./hiera", "/var/lib/hiera"
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
@@ -75,7 +75,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     box.vm.network "private_network", ip: "192.168.34.101"
 
-    box.vm.synced_folder "../docroot", "/var/www/localhost"
+    box.vm.synced_folder "./docroot", "/var/www/localhost"
     box.vm.network "forwarded_port", guest: 80, host: 15102
     box.vm.network "forwarded_port", guest: 9000, host: 15103
 
