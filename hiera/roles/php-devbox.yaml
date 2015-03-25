@@ -1,0 +1,6 @@
+---
+
+role_php_server::pecl::modules: {}
+role_php_server::module_configs: {}
+
+nginx::vhost_purge: true
