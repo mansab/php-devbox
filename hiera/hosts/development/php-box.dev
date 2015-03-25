@@ -1,0 +1,70 @@
+---
+roles:
+  - role_php_server
+  - role_http_server
+  - role_php_dev
+
+role_php_server::php_package_devel: 'php-devel'
+role_php_server::module_prefix: 'php-'
+role_php_server::pear_package: 'php-pear'
+role_php_server::php_fpm_package: 'php-fpm'
+role_php_server::php_fpm_service: 'php-fpm'
+role_php_server::php_package: 'php'
+
+role_php_server::modules:
+  cli: {}
+  mcrypt: {}
+  pecl-xdebug: {}
+  imap: {}
+  common: {}
+  pdo: {}
+  pgsql: {}
+  intl: {}
+
+role_php_server::module_config_source: 'puppet:///modules/role_php_server/app/php/centos/xdebug.ini'
+
+role_http_server::vhosts:
+  'php-box.dev':
+    www_root: '/var/www/localhost/'
+    access_log: '/var/log/nginx/php-devbox-access.log'
+    error_log: '/var/log/nginx/php-devbox-error.log'
+    index_files:
+      - index.php
+      - index.htm
+      - index.html
+    listen_options: default_server
+    try_files:
+      - '$uri'
+      - '$uri/'
+      - '/index.php?$query_string'
+    vhost_cfg_append:
+      sendfile: 'off'
+      gzip_proxied: 'any'
+      gzip_buffers: '16 8k'
+      gzip_types: 'text/plain application/xml text/css text/js text/xml application/javascript application/x-javascript text/javascript application/json application/xml+rss'
+      gzip_vary: 'on'
+
+role_http_server::locations:
+  'php-box.dev_php':
+    ensure: present
+    vhost: php-box.dev
+    www_root: /var/www/localhost/
+    location: '~ \.php$'
+    index_files:
+      - index.php
+      - index.htm
+      - index.html
+    fastcgi: 127.0.0.1:9000
+    fastcgi_script: /var/www/localhost$fastcgi_script_name
+    location_cfg_append:
+      fastcgi_connect_timeout: '3m'
+      fastcgi_read_timeout: '3m'
+      fastcgi_send_timeout: '3m'
+      fastcgi_index: 'index.php'
+  'php-box.dev_cache':
+    ensure: present
+    vhost: php-box.dev
+    location: '~* .(jpg|jpeg|png|gif|ico|css|js)$'
+    www_root: /var/www/localhost
+    location_cfg_append:
+      expires: '1d'
