@@ -46,7 +46,7 @@ echo Preparing the VM. This may take some time depending upon the setup.
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     box.vm.provision "puppet" do |puppet|
       puppet.manifests_path = "./manifests"
-      puppet.module_path = ["./modules", "./roles"]
+      puppet.module_path = ["./modules", "./roles", "./services"]
       puppet.manifest_file = "site.pp"
       puppet.hiera_config_path = "./hiera/hiera.yaml"
       puppet.facter = {role: role, environment: "development"}
@@ -69,7 +69,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # config for the PHP dev box
   config.vm.define "php-devbox" do |box|
-    box.vm.box = "enadco/ubuntu"
+    box.vm.box = "mansabuppal/centos-7"
+    box.vm.box_version = "0.1"
     box.vm.host_name = "php-box.dev"
     configure_providers.call(box, "php-devbox", 1024, 2)
 
