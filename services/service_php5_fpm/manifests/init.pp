@@ -8,6 +8,7 @@ class service_php5_fpm(
   $module_prefix            = 'php-',
   $fpm_config_file_template = 'role_php_server/app/php/php-fpm.conf.erb',
   $php_ini_file_source      = 'puppet:///modules/role_php_server/app/php/php.ini',
+  $www_pool                 = 'nginx',
   $modules                  = {},
   $pecl_modules             = {},
   $module_config_source     = undef,
@@ -39,7 +40,7 @@ class service_php5_fpm(
     mode    => 644,
     content => template($fpm_config_file_template),
     notify  => Service[$php_fpm_service],
-    require => Package[ [$php_fpm_package, 'nginx'] ]
+    require => Package[ [$php_fpm_package, 'nginx'] ] # nginx package is needed due to php-fpm www_pool configuration, user & group definition.
   }
 
   class { 'php':
