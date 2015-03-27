@@ -16,6 +16,7 @@ FORGE
     puppetlabs-concat (1.2.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-stdlib (4.5.1)
+    stahnma-epel (1.0.2)
     theforeman-concat_native (1.3.2)
     theforeman-puppet (3.0.0)
       puppetlabs-apache (< 2.0.0, >= 1.2.0)
@@ -25,5 +26,6 @@ FORGE
 DEPENDENCIES
   example42-php (>= 0)
   jfryman-nginx (>= 0)
+  stahnma-epel (>= 0)
   theforeman-puppet (>= 0)
 
