@@ -54,7 +54,7 @@ echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     end
     box.vm.provision "shell", inline: " 
 echo VM is ready. You may SSH into the machine by typing: 'vagrant ssh php-devbox'.
-NOTE: To report any problems, please create an issue at: https://github.com/mansab/php-devbox/issues/new"
+echo NOTE: To report any problems/concerns, please create an issue at: https://github.com/mansab/php-devbox/issues/new"
 }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
