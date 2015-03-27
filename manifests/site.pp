@@ -1,5 +1,13 @@
 node default {
 
+  stage { 'initialize':
+    before => Stage['main'],
+  }
+ 
+  stage { 'finalize':
+    require => Stage['main'],
+  }
+
   # set explicit allow_virtual to true to avoid warning
   Package {
     allow_virtual => true,
@@ -11,9 +19,15 @@ node default {
     notify { $assigned_roles: }
 
     hiera_include('roles', [])
+    
+    class { '::epel':
+      stage => initialize
+    }
 
-    class { "base": }
+    class { "profile::base": 
+      stage => finalize
+    }
 
     include service_set_locales
-  }
+
 }

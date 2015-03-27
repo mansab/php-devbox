@@ -1,8 +1,8 @@
 ---
 roles:
   - role_php_server
-  - role_http_server
-  - role_php_dev
+#  - role_http_server
+#  - role_php_dev
 
 role_php_server::php_package_devel: 'php-devel'
 role_php_server::module_prefix: 'php-'

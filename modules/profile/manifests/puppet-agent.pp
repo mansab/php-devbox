@@ -1,4 +1,4 @@
-class puppet-agent (
+class profile::puppet-agent (
   $puppetmaster = undef,
   $runmode
 ) {

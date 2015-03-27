@@ -1,15 +1,15 @@
-class base(
+class profile::base(
   $common_packages = ['tmux', 'curl', 'wget', 'rsync', 'unzip', 'htop'],
   $update_packages = {},
   $puppetmaster    = undef,
   $puppetrunmode   = "none"
 ){
-   class { "ssh":
+   class { "profile::ssh":
      server_options => hiera('ssh_server_options'),
      client_options => hiera('ssh_client_options')
    }
 
-   class { "puppet-agent":
+   class { "profile::puppet-agent":
      puppetmaster => $puppetmaster,
      runmode      => $puppetrunmode
    }
